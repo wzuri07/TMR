@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta id="theme-color" name="theme-color" content="#f6f7fb">
+    <meta name="description" content="Corrector local de gramática, vocabulario y claridad para inglés internacional.">
+    <title>Clear English — Corrector internacional</title>
+    <script>
+      try {
+        document.documentElement.dataset.theme =
+          localStorage.getItem("clear-english-theme") === "dark" ? "dark" : "light";
+      } catch {
+        document.documentElement.dataset.theme = "light";
+      }
+    </script>
+    <link rel="stylesheet" href="styles.css">
+    <script src="examples.js" defer></script>
+    <script src="checker.js" defer></script>
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+    <header class="topbar">
+      <a class="brand" href="#" aria-label="Clear English, inicio">
+        <span class="brand-mark" aria-hidden="true">C</span>
+        <span>Clear<span class="brand-light">English</span></span>
+      </a>
+      <span class="privacy-note"><span class="privacy-dot" aria-hidden="true"></span> Privado · funciona sin conexión</span>
+      <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Activar modo oscuro" aria-pressed="false" title="Activar modo oscuro">
+        <span class="theme-icon" aria-hidden="true">☾</span>
+        <span class="theme-label">Modo oscuro</span>
+      </button>
+    </header>
+
+    <main>
+      <section class="intro">
+        <p class="eyebrow">TU ASISTENTE DE ESCRITURA</p>
+        <h1>Escribe con claridad.<br><span>Comunica con confianza.</span></h1>
+        <p class="intro-copy">Revisa gramática, vocabulario y claridad en inglés internacional. Tus textos se quedan en este dispositivo.</p>
+      </section>
+
+      <section class="workspace" aria-label="Corrector de textos">
+        <div class="editor-panel">
+          <div class="panel-heading">
+            <div>
+              <label for="editor" class="field-label">Tu texto en inglés</label>
+              <p class="panel-hint">Las sugerencias respetan las variantes internacionales del inglés.</p>
+            </div>
+            <span id="word-count" class="word-count">0 palabras</span>
+          </div>
+          <textarea id="editor" placeholder="Escribe o pega aquí tu texto en inglés…" spellcheck="false" aria-describedby="editor-help"></textarea>
+          <p id="editor-help" class="privacy-detail">El análisis se ejecuta localmente en tu navegador. No se transmite ni se guarda el texto.</p>
+          <div class="editor-actions">
+            <button id="example-button" class="text-button" type="button">Probar con un ejemplo</button>
+            <button id="clear-button" class="text-button" type="button">Limpiar</button>
+            <button id="improve-button" class="primary-button" type="button"><span aria-hidden="true">✦</span> Mejorar y reemplazar texto</button>
+          </div>
+        </div>
+
+        <section class="suggestions-panel" aria-labelledby="suggestions-title">
+          <div class="suggestions-heading">
+            <div>
+              <h2 id="suggestions-title">Sugerencias</h2>
+              <p id="status" class="status" aria-live="polite">Las sugerencias aparecerán aquí</p>
+            </div>
+            <button id="check-button" class="apply-all-button" type="button">Revisar sugerencias</button>
+          </div>
+          <div id="results" class="results" aria-live="polite"></div>
+        </section>
+      </section>
+
+      <aside class="scope-note">
+        <span class="scope-icon" aria-hidden="true">i</span>
+        <p><strong>Una ayuda, no un veredicto.</strong> Las sugerencias se basan en reglas y patrones frecuentes; las observaciones de claridad pueden depender del contexto. Revisa cada cambio para asegurarte de que conserva tu intención.</p>
+      </aside>
+    </main>
+
+    <footer>
+      <span>Clear English</span>
+      <span>Hecho para el inglés internacional</span>
+    </footer>
+  </body>
+</html>
