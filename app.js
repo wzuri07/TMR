@@ -157,7 +157,6 @@ clearButton.addEventListener("click", () => {
   status.textContent = "";
   updateWordCount();
   renderFindings();
-  applyTheme(document.documentElement.dataset.theme || "light", false);
   editor.focus();
 });
 
@@ -173,3 +172,4 @@ exampleButton.addEventListener("click", () => {
 
 updateWordCount();
 renderFindings();
+applyTheme(document.documentElement.dataset.theme || "light", false);
