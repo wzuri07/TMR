@@ -1,71 +1,68 @@
-# TMR — Translator Machine-Reader
+# Clear English
 
-## Clear English: corrector de inglés internacional
+**A private English grammar and clarity checker that runs entirely in your browser.**
 
-Aplicación web ligera para revisar gramática y mejorar la legibilidad de textos
-en inglés. Funciona en el navegador, no requiere instalación y procesa el texto
-localmente, sin enviarlo a un servidor.
+**[Try it live →](https://wzuri07.github.io/TMR/)**
 
-### Funciones
+![Clear English reviewing a passage](docs/screenshot.png)
 
-- Corrección de errores frecuentes de ortografía, gramática y uso de palabras.
-- Mejora de formato, claridad y algunas frases conocidas.
-- Texto de demostración de Fallarbor Woods y área de texto para documentos de
-  una o más páginas.
-- Tema claro y oscuro, con preferencia recordada en el navegador.
-- Sin dependencias de ejecución ni servicios externos.
+Clear English reviews English text for common grammar, spelling and word-choice mistakes, then rewrites it for readability. It is built for *international* English: it does not force American or British spelling, so it is useful for non-native writers and mixed audiences. Everything is processed on your device; no text is ever sent to a server.
 
-## Uso
+> The interface is in Spanish, since it was built for Spanish speakers writing in English.
 
-1. Abre `index.html` con doble clic.
-2. Escribe o pega el texto en inglés.
-3. Pulsa **Mejorar y reemplazar texto** para aplicar las correcciones
-   automáticas directamente en el cuadro grande. El resultado sustituye allí
-   mismo el texto original.
-4. Pulsa **Revisar sugerencias** si quieres ver las observaciones sin modificar
-   el texto; luego puedes aplicar cada sugerencia individualmente.
-5. **Probar con un ejemplo** carga el pasaje de Fallarbor Woods; **Mejorar y
-   reemplazar texto** lo convierte y pone el resultado en el mismo cuadro.
-6. Usa el botón con la luna/sol en la barra superior para alternar entre tema
-   claro y oscuro. La preferencia queda guardada en este navegador.
+## Features
 
-## Alcance y privacidad
+- **One-click improve:** fixes frequent errors and replaces the text in place
+- **Review mode:** lists suggestions without touching your text, so you can apply them one by one
+- **Checks for:** subject–verb agreement, article usage, common misspellings, unnatural phrasing, redundancy, accidental repeated words, and overly long sentences
+- **Private and offline:** no server, no account, no tracking
+- **Light and dark themes,** with your choice remembered in the browser
+- **Zero runtime dependencies:** plain HTML, CSS and JavaScript
 
-El corrector identifica errores frecuentes de concordancia, algunos errores de
-artículos, palabras mal escritas, expresiones poco naturales, redundancias y
-posibles problemas de claridad. Evita imponer grafías exclusivamente
-estadounidenses o británicas para ser útil en contextos de inglés internacional.
+## How it works
 
-La revisión y mejora son heurísticas: corrigen patrones frecuentes, limpian
-formato y simplifican algunas expresiones, pero no comprenden cualquier contexto
-como una persona. Las observaciones de claridad (por ejemplo, voz pasiva) son
-sugerencias, no errores confirmados. Comprueba que el resultado conserve el
-significado y el tono que buscas; no sustituye una revisión humana ni un
-corrector lingüístico exhaustivo.
+The checker in [`checker.js`](checker.js) is rule-based. Rules are grouped by type (spelling, agreement, articles, phrasing), and the rewrite runs as a pipeline of independent stages that can be switched on or off per call:
 
-El cuadro de texto no tiene un límite de longitud impuesto por la aplicación.
-La calidad de la reescritura puede variar según el tema y el contexto.
+```js
+improveText(text, { rewriteKnownPassages: false });
+```
 
-## Publicar con GitHub Pages
+Stages: `normalizeFormatting` → `rewriteKnownPassages` → `grammarPasses` → `smoothRepeatedBecause` → `capitalizeSentences` → `ensureFinalPunctuation`.
 
-Cuando el repositorio esté en GitHub, abre **Settings → Pages**, selecciona
-**Deploy from a branch**, elige `main` y la carpeta raíz (`/`). Guarda los
-cambios; GitHub Pages publicará `index.html` y la aplicación estará disponible
-como sitio web estático.
+Because it relies on patterns rather than understanding, clarity notes (such as passive voice or long sentences) are suggestions, not confirmed errors. It is a writing aid, not a replacement for a human proofreader.
 
-## Ampliar el programa
+## Run it locally
 
-- Las correcciones se agrupan por tipo en `checker.js`: añade reglas de
-  concordancia, artículos, frases u ortografía junto a las reglas de su tipo.
-- La mejora se ejecuta mediante etapas con opciones: `normalizeFormatting`,
-  `rewriteKnownPassages`, `grammarPasses`, `smoothRepeatedBecause`,
-  `capitalizeSentences` y `ensureFinalPunctuation`. Se pueden activar o
-  desactivar por llamada, por ejemplo:
-  `improveText(text, { rewriteKnownPassages: false })`.
-- Los textos de demostración viven aparte en `examples.js`, para poder agregar
-  nuevos ejemplos sin mezclar contenido con la interfaz.
+No build step. Clone the repo and open `index.html` in any modern browser:
 
-## Pruebas
+```bash
+git clone https://github.com/wzuri07/TMR.git
+```
 
-Con Node.js instalado, ejecuta `npm test` en esta carpeta. Node solo se usa para
-las pruebas: la aplicación funciona directamente en el navegador sin Node.
+## Tests
+
+The checker has a test suite using Node's built-in test runner (Node is only needed for tests, not for the app):
+
+```bash
+npm test
+```
+
+## Project structure
+
+| File | Purpose |
+|---|---|
+| `index.html` | Page layout |
+| `app.js` | UI logic, theme toggle, applying suggestions |
+| `checker.js` | Grammar rules and the rewrite pipeline |
+| `examples.js` | Demo passages, kept separate from the UI |
+| `styles.css` | Light and dark themes |
+| `test/` | Unit tests for the checker |
+
+## Extending it
+
+- Add a rule next to the others of its type in `checker.js`.
+- Add demo text to `examples.js` without touching the interface.
+
+## About the name
+
+The repository is called **TMR** (Translator Machine-Reader), the broader idea behind it: making machine-translated and non-native English easier to read. Clear English is the first tool from that idea.
