@@ -1,9 +1,12 @@
 {
-  "name": "corrector-ingles-internacional",
+  "name": "clear-english",
   "version": "1.0.0",
   "private": true,
-  "description": "Corrector local de gramática y claridad para inglés internacional",
+  "description": "Private, in-browser English grammar and clarity checker for international English",
   "scripts": {
     "test": "node --test"
+  },
+  "engines": {
+    "node": ">=20"
   }
 }

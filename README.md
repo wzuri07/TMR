@@ -1,5 +1,7 @@
 # Clear English
 
+[![CI](https://github.com/wzuri07/TMR/actions/workflows/ci.yml/badge.svg)](https://github.com/wzuri07/TMR/actions/workflows/ci.yml)
+
 **A private English grammar and clarity checker that runs entirely in your browser.**
 
 **[Try it live →](https://wzuri07.github.io/TMR/)**
